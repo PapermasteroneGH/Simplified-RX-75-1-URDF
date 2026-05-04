@@ -93,6 +93,7 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1.0"/>
     <inertia ixx="0.05" ixy="0" ixz="0" iyy="0.05" iyz="0" izz="0.05"/>
+    </inertial>
   </link>
   <link name="Torso_link">
     <visual>
@@ -126,6 +127,11 @@
             <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket004(Head).stl"/>
         </geometry>
     </visual>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
   </link>
   <joint name="Head_to_Torso_Joint" type="revolute">
     <parent link="Torso_link"/>
