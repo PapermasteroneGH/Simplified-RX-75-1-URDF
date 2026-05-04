@@ -13,13 +13,13 @@
     <color rgba="0 0 0 1"/>
   </material>
 
-  <xacro:property name="bigwheels" value="package://my_truck_description/meshes/wheel.stl" />
+  <xacro:property name="Sprockets" value="package://my_truck_description/meshes/wheel.stl" />
 
   <xacro:macro name="bigwheels" params="prefix x y z">
     <link name="${prefix}_wheel_link">
       <visual>
         <geometry>
-          <mesh filename="${wheel_mesh}" />
+          <mesh filename="C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\LeftRowWheels\HullAssembly-AssemblyPad024(BigWheel1).stl" />
         </geometry>
       </visual>
       <collision>
@@ -38,21 +38,16 @@
   </xacro:macro>
 
   <xacro:macro name="smallwheels" params="prefix x y z">
-    <link name="${prefix}_wheel_link">
+    <link name="smallwheel_link">
       <visual>
         <geometry>
-          <mesh filename="${wheel_mesh}" />
+          <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\LeftRowWheels\HullAssembly-AssemblyPad025(SmallWheel1).stl" />
         </geometry>
       </visual>
-      <collision>
-        <geometry>
-          <mesh filename="${wheel_mesh}" />
-        </geometry>
-      </collision>
       <!-- Inertial properties would go here -->
     </link>
     <joint name="${prefix}_wheel_joint" type="continuous">
-      <parent link="chassis_link"/>
+      <parent link="Hull_link"/>
       <child link="${prefix}_wheel_link"/>
       <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
@@ -189,4 +184,3 @@
     <limit effort="100" lower="-1.57" upper="1.57" velocity="1.0"/>
   </joint>
 </robot>
-
