@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="RX-75-1">
+  <material name="Blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="Red">
+    <color rgba="0.8 0 0 1"/>
+  </material>
+  <material name="Gray">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+  <material name="Black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <xacro:property name="bigwheels" value="package://my_truck_description/meshes/wheel.stl" />
+
+  <xacro:macro name="bigwheels" params="prefix x y z">
+    <link name="${prefix}_wheel_link">
+      <visual>
+        <geometry>
+          <mesh filename="${wheel_mesh}" />
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="${wheel_mesh}" />
+        </geometry>
+      </collision>
+      <!-- Inertial properties would go here -->
+    </link>
+    <joint name="${prefix}_wheel_joint" type="continuous">
+      <parent link="chassis_link"/>
+      <child link="${prefix}_wheel_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="smallwheels" params="prefix x y z">
+    <link name="${prefix}_wheel_link">
+      <visual>
+        <geometry>
+          <mesh filename="${wheel_mesh}" />
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="${wheel_mesh}" />
+        </geometry>
+      </collision>
+      <!-- Inertial properties would go here -->
+    </link>
+    <joint name="${prefix}_wheel_joint" type="continuous">
+      <parent link="chassis_link"/>
+      <child link="${prefix}_wheel_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- LINK 1: Base -->
+  <link name="Hull_link">
+    <visual>
+      <geometry>
+        <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket016(Hull).stl"/>
+      </geometry>
+      <material name="Blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket016(Hull).stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="2.5"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+  </link>
+  <joint name="Hip_to_Hull_Joint" type="fixed">
+    <parent link="Hull_link"/>
+    <child link="Hip_link"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+  </joint>
+  <link name="Hip_link">
+    <visual>
+        <geometry>
+            <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket006(Hips).stl"/>
+        </geometry>
+    </visual>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.0"/>
+    <inertia ixx="0.05" ixy="0" ixz="0" iyy="0.05" iyz="0" izz="0.05"/>
+  </link>
+  <link name="Torso_link">
+    <visual>
+        <geometry>
+            <mesh />
+        </geometry>
+    </visual>
+  </link>
+  <joint name="Torso_to_Hip_Joint" type="revolute">
+    <parent link="Hip_link"/>
+    <child link="Torso_link"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+  <link name="ShoulderCannons_link">
+    <visual>
+        <geometry>
+            <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket005(ShoulderCannons).stl"/>
+        </geometry>
+    </visual>
+  </link>
+  <joint name="ShoulderCannons_to_Torso_Joint" type="revolute">
+    <parent link="Torso_link"/>
+    <child link="ShoulderCannons_link"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+  </joint>
+  <link name="Head_link">
+    <visual>
+        <geometry>
+            <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket004(Head).stl"/>
+        </geometry>
+    </visual>
+  </link>
+  <joint name="Head_to_Torso_Joint" type="revolute">
+    <parent link="Torso_link"/>
+    <child link="Head_link"/>
+    <origin xyz="0 0 1.0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+  <link name="LeftArm_link">
+    <visual>
+        <geometry>
+            <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket003(LeftArm).stl"/>
+        </geometry>
+    </visual>
+  </link>
+  <joint name="LeftArm_to_Torso_Joint" type="revolute">
+    <parent link="Torso_link"/>
+    <child link="LeftArm_link"/>
+    <origin xyz="-0.5 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+  <link name="RightArm_link">
+    <visual>
+        <geometry>
+            <mesh filename=r"C:\Users\Kentarou\Documents\Engineering Studies\Engineering Design\RX-75-1\HullAssemblySTLs\HullAssembly-AssemblyPocket002(RightArm).stl"/>
+        </geometry>
+    </visual>
+  </link>
+  <joint name="RightArm_to_Torso_Joint" type="revolute">
+    <parent link="Torso_link"/>
+    <child link="RightArm_link"/>
+    <origin xyz="0.5 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="100" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+
+
+  <!-- JOINT: Defines the connection -->
+  <joint name="base_to_arm_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="arm_link"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100" lower="-1.57" upper="1.57" velocity="1.0"/>
+  </joint>
+
+  <!-- LINK 2: Arm -->
+  <link name="arm_link">
+    <!-- ... -->
+  </link>
+
+</robot>
+
